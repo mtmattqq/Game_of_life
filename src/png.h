@@ -5,12 +5,15 @@
 #include <cstdint>
 #include "board.h"
 
-class png_generator {
-private :
-    const uint32_t header[] {137, 80, 78, 71, 13, 10, 26, 10};
-    void gen(string, board);
-public :
-    void operator()(string, board);
+namespace png {
+    struct chunk {
+        uint32_t length;
+        std::string ctype;
+        std::vector<unsigned char> data;
+        std::vector<unsigned char> crc32;
+    };
+
+    template<typename T> void gen(std::string, board<T>);
 };
 
 #endif
