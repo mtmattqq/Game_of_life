@@ -1,3 +1,6 @@
+#ifndef BOARD_H
+#define BOARD_H
+
 #include <vector>
 #include <cstdint>
 
@@ -22,3 +25,5 @@ public :
     T& operator[](position pos);
     position size();
 };
+
+#endif
