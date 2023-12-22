@@ -23,6 +23,7 @@ public :
     board(uint32_t, uint32_t);
 
     T& operator[](position pos);
+    void random();
     position size();
 };
 

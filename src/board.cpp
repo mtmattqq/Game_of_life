@@ -1,4 +1,5 @@
 #include "board.h"
+#include "rng.h"
 
 board::board() {
     info = mat(0, vec(0));
@@ -19,7 +20,17 @@ board::board(const uint32_t r, const uint32_t c) {
 
 template<typename T>
 T& board::operator[](position pos) {
-    return info[pos.row][pos.column];
+    return info.at(pos.row).at(pos.column);
+}
+
+template<typename T>
+void board::random() {
+    random_number_generator rng(13975);
+    for(auto &line : info) {
+        for(T &val : line) {
+            val = rng(0, 100);
+        }
+    }
 }
 
 position board::size() {
