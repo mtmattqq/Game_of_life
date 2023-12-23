@@ -12,4 +12,4 @@ Let weight function be W().
 
 ### Polynomial
 
-Use the previous $N$ state. For each block, let the number surrounding block in the previous $i$'th state be $P_{N - i}$. Let $W(P) = {\displaystyle\sum_{i = 1}^{N}{P_{i}^i} \over \displaystyle\sum_{i = 1}^{N}{8^i}}$
+Use the previous $N$ state. For each block, let the number surrounding block in the previous $i$'th state be $P_{N - i}$. Let $W(P) = {\displaystyle\sum_{i = 1}^{N}{P_{i}^i \over 8^i}}$

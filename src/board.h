@@ -5,8 +5,9 @@
 #include <cstdint>
 
 struct position {
-    uint32_t row;
-    uint32_t column;
+    int32_t row;
+    int32_t column;
+    position(int32_t, int32_t);
 };
 
 template<typename T>

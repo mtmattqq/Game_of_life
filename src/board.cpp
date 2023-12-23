@@ -1,6 +1,11 @@
 #include "board.h"
 #include "rng.h"
 
+position::position(int32_t r, int32_t c) {
+    row = r;
+    column = c;
+}
+
 board::board() {
     info = mat(0, vec(0));
     rows = 0;
