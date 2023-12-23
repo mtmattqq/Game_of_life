@@ -6,6 +6,11 @@ position::position(int32_t r, int32_t c) {
     column = c;
 }
 
+position operator+(position a, position b) {
+    position ret(a.row + b.row, a.column + b.column);
+    return ret;
+}
+
 board::board() {
     info = mat(0, vec(0));
     rows = 0;
@@ -18,22 +23,20 @@ board::board(const uint32_t n) {
 }
 
 board::board(const uint32_t r, const uint32_t c) {
-    info = mat(row, vec(column));
+    info = mat(r, vec(c));
     rows = r;
     columns = c;
 }
 
-template<typename T>
-T& board::operator[](position pos) {
+double& board::operator[](position pos) {
     return info.at(pos.row).at(pos.column);
 }
 
-template<typename T>
 void board::random() {
-    random_number_generator rng(13975);
+    random_number_generater rng(13975);
     for(auto &line : info) {
-        for(T &val : line) {
-            val = rng(0, 100);
+        for(double &val : line) {
+            val = rng(0, 100) / 100.0;
         }
     }
 }

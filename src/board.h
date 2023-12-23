@@ -10,10 +10,11 @@ struct position {
     position(int32_t, int32_t);
 };
 
-template<typename T>
+position operator+(position a, position b);
+
 class board {
 private :
-    using vec = std::vector<T>;
+    using vec = std::vector<double>;
     using mat = std::vector<vec>;
     mat info;
     uint32_t rows, columns;
@@ -23,9 +24,10 @@ public :
     board(uint32_t);
     board(uint32_t, uint32_t);
 
-    T& operator[](position pos);
+    double& operator[](position pos);
     void random();
     position size();
+    bool in(position pos);
 };
 
 #endif

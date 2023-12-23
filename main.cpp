@@ -6,12 +6,9 @@
 #include "src/board.h"
 #include "src/png.h"
 
-void next_state(std::deque<board<double>> &states, std::function<double(double)> &weight, const int WIDTH, const int HEIGHT) {
-    board<double> next(WIDTH, HEIGHT);
-    const position surround[8]{
-        (0, 1), (1, 0), (0, -1), (-1, 0),
-        (1, 1), (1, -1), (-1, 1), (-1, -1)
-    };
+void next_state(std::deque<board> &states, std::function<double(double, int)> &weight, const int WIDTH, const int HEIGHT) {
+    board next(WIDTH, HEIGHT);
+    std::vector<position> surround;
     
     uint32_t size = states.size();
     for(int i = 0; i < WIDTH; ++i) {
@@ -20,7 +17,7 @@ void next_state(std::deque<board<double>> &states, std::function<double(double)>
             double w = 0;
             for(int k = 0; k < size; ++k) {
                 double p = 0;
-                for(position &delta : surround) {
+                for(position delta : surround) {
                     position pos_next = pos_now + delta;
                     if(states.at(size - k - 1).in(pos_next)) {
                         p += states.at(size - k - 1)[pos_next];
@@ -28,7 +25,7 @@ void next_state(std::deque<board<double>> &states, std::function<double(double)>
                 }
                 w += weight(p, k);
             }
-            next[pos_next] = w;
+            next[pos_now] = w;
         }
     }
     states.push_back(next);
@@ -38,15 +35,16 @@ void next_state(std::deque<board<double>> &states, std::function<double(double)>
 void polynomial(int n) {
     const int WIDTH = 20;
     const int HEIGHT = 10;
-    board<double> begin(WIDTH, HEIGHT);
+    board begin(WIDTH, HEIGHT);
 
     begin.random();
-    std::deque<board<double>> states(n, begin);
+    std::deque<board> states(n, begin);
     const int ROUND = 100;
     
-    std::function<double(double)> weight = [](double p, int i) {
+    std::function<double(double, int)> weight = [](double p, int i) {
         return pow(p / 8, i);
-    }
+    };
+
     for(int i = 0; i < ROUND; ++i) {
         next_state(states, weight, WIDTH, HEIGHT);
     }

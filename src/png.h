@@ -17,7 +17,7 @@ private :
     chunk header; 
 
 public :
-    template<typename T> void gen(std::string, board<T>);
+    void gen(std::string, board);
 };
 
 #endif

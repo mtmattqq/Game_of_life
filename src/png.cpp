@@ -16,8 +16,7 @@ const chunk IHDR {
     {}
 };
 
-template<typename T>
-void png::gen(std::string filename, board<T>) {
+void png::gen(std::string filename, board) {
     std::ofstream output(filename, std::ios::binary);
     for(uint32_t word : PNG_HEADER) {
         output << word;
