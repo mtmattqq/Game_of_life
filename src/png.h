@@ -7,17 +7,24 @@
 
 struct chunk {
     uint32_t length;
-    std::string ctype;
-    std::vector<unsigned char> data;
-    std::vector<unsigned char> crc32;
+    std::vector<u_char> ctype;
+    std::vector<u_char> data;
+    uint32_t crc32;
 };
+
+std::ostream& operator<<(std::ostream &output, chunk c);
 
 class png {
 private :
-    chunk header; 
+    chunk header;
+    std::vector<u_char> crc_table;
+    void build_crc_table();
+    uint32_t crc(std::vector<u_char>, std::vector<u_char>);
 
 public :
     void gen(std::string, board);
+    png();
+    png(chunk);
 };
 
 #endif
